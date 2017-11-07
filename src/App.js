@@ -38,6 +38,7 @@ class App extends React.Component {
               <Counter
                 amount={counterValue}
                 increment={() => this.increment((index + 1), index)}
+                // increment={this.increment}
                 decrement={() => this.decrement((index + 1), index)}
               />
           )}
