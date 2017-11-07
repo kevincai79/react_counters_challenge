@@ -31,23 +31,23 @@ class App extends React.Component {
 
   increment(index) {
     const counters = this.state.counters
-    counters[index].count += counters[index].multiplier
+    counters[index].value += 1
     this.setState({counters})
   }
 
   decrement(index) {
     const counters = this.state.counters
-    counters[index].count -= counters[index].multiplier
+    counters[index].value -= 1
     this.setState({counters})
   }
 
   total() {
-    return this.state.counters.reduce((sum, counter) => sum + counter.count, 0);
+    return this.state.counters.reduce((sum, counter) => sum + counter.value, 0);
   }
 
   addCounter() {
     const counters = this.state.counters
-    counters.push({count: 0, multiplier: (this.state.counters.length + 1)})
+    counters.push({value: 0})
     this.setState({ counters })
   }
 
@@ -61,12 +61,12 @@ class App extends React.Component {
     return (
 
       <div className="page-center-frame">
-        <h1>{ this.state.jsonReturnedValue }</h1>
         {(this.state.counters).map((counter, index) =>
-        <Counter increment={ () => this.increment(index)} decrement={ () => this.decrement(index)} count={counter.count}/>
+        <Counter
+        increment={ () => this.increment(index)}
+        decrement={ () => this.decrement(index)}
+        value={counter.value}/>
           )}
-        {/*<Counter multiplier={2} increment={ () => this.increment("count2", 2)} decrement= { () => this.decrement("count2", 2)} count={this.state.count2}/>
-        <Counter multiplier={3} increment={ () => this.increment("count3", 3)} decrement= { () => this.decrement("count3", 3)} count={this.state.count3}/>*/}
 
         <div className='total'>
           <span>Total: {this.total()}</span>
