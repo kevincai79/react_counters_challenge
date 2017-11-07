@@ -6,11 +6,12 @@ class App extends React.Component {
   constructor(){
     super()
     this.state = {
-      counters: [
-        {count: 0, multiplier: 1},
-        {count: 0, multiplier: 2},
-        {count: 0, multiplier: 3}
-        ]
+      // {counters: [
+      //   {count: 0, multiplier: 1},
+      //   {count: 0, multiplier: 2},
+      //   {count: 0, multiplier: 3}
+      //   ]},
+      counters: []
     }
 
     this.increment = this.increment.bind(this)
@@ -18,6 +19,14 @@ class App extends React.Component {
     this.total = this.total.bind(this)
     this.addCounter = this.addCounter.bind(this)
     this.removeCounter = this.removeCounter.bind(this)
+  }
+
+  componentDidMount() {
+    fetch('http://numbers-api.herokuapp.com/')
+      .then(response => response.json())
+      .then(data =>
+        this.setState({ counters: data })
+      );
   }
 
   increment(index) {
@@ -52,6 +61,7 @@ class App extends React.Component {
     return (
 
       <div className="page-center-frame">
+        <h1>{ this.state.jsonReturnedValue }</h1>
         {(this.state.counters).map((counter, index) =>
         <Counter increment={ () => this.increment(index)} decrement={ () => this.decrement(index)} count={counter.count}/>
           )}
