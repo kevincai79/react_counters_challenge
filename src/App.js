@@ -7,9 +7,7 @@ class App extends React.Component {
     super();
 
     this.state = {
-        count1: 0,
-        count2: 0,
-        count3: 0,
+        counters: [0,0,0]
       }
 
 
@@ -17,18 +15,18 @@ class App extends React.Component {
     this.decrement = this.decrement.bind(this)
   }
 
-  increment(incrementValue, keyName) {
-    this.setState({ [keyName]: this.state[keyName] + incrementValue })
+  increment(incrementValue, index) {
+    this.state.counters[index] += incrementValue
+    this.setState({ counters: this.state.counters })
   }
 
-  decrement(decrementValue, keyName){
-    this.setState({ [keyName]: this.state[keyName] - decrementValue })
+  decrement(decrementValue, index){
+    this.state.counters[index] -= decrementValue
+    this.setState({ counters: this.state.counters })
   }
 
   calculateTotal() {
-    const stuff = Object.values(this.state)
-    console.log(stuff)
-    const totalCount = stuff.reduce((count, sum) =>
+    const totalCount = this.state.counters.reduce((count, sum) =>
       count + sum)
     return totalCount
   }
@@ -36,23 +34,13 @@ class App extends React.Component {
   render() {
     return (
       <div className="page-center-frame">
-        <Counter
-          amount={this.state.count1}
-          increment={() => this.increment(1, "count1")}
-          decrement={() => this.decrement(1, "count1")}
-        />
-
-        <Counter
-          amount={this.state.count2}
-          increment={() => this.increment(2, "count2")}
-          decrement={() => this.decrement(2, "count2")}
-        />
-
-        <Counter
-          amount={this.state.count3}
-          increment={() => this.increment(3, "count3")}
-          decrement={() => this.decrement(3, "count3")}
-        />
+          {this.state.counters.map((counterValue, index) =>
+              <Counter
+                amount={counterValue}
+                increment={() => this.increment((index + 1), index)}
+                decrement={() => this.decrement((index + 1), index)}
+              />
+          )}
 
         <span>
           { this.calculateTotal() }
