@@ -1,6 +1,7 @@
 import React from 'react';
 import Counter from './Counter';
 import './App.css';
+import axios from 'axios';
 
 class App extends React.Component {
   constructor(){
@@ -27,6 +28,17 @@ class App extends React.Component {
       .then(data =>
         this.setState({ counters: data })
       );
+  }
+
+  componentWillMount(index, counter_id) {
+    const counter = this.state.counters[index]
+    axios.put(`http://numbers-api.herokuapp.com/counters/${counter_id}`,
+      { counter: {count_by: counter.value += 1}})
+      .then(function(response){
+        console.log(response)
+      // this.setState(response)
+    })
+
   }
 
   increment(index) {
