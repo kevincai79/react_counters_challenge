@@ -69,19 +69,22 @@ setNewChangeBy(event) {
           remove={() => this.remove(index)}
          />
       )}
-      <form action="" onSubmit={this.addNewCounter}>
-        <input
-          type="number"
-          onChange={this.setNewChangeBy}
-          value={this.state.newChangeBy}
-        />
-        <button>
-        Add Fancy New Counter
-        </button>
-      </form>
-      <p>
-        Total: { this.total()}
-      </p>
+        <span>
+          <form action="" onSubmit={this.addNewCounter}>
+            <input
+              type="number"
+              onChange={this.setNewChangeBy}
+              value={this.state.newChangeBy}
+            />
+            <button>
+            Add Fancy New Counter
+            </button>
+          </form>
+          <br/>
+          <p>
+            Total: { this.total()}
+          </p>
+        </span>
       </div>
     );
   }
